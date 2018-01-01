@@ -1,24 +1,26 @@
 package com.example.superdiff.utils;
 
+import com.example.superdiff.exception.CryptoException;
+
 import java.io.*;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 
 public class CryptoUtils {
 
-    public static String md5(String filename) {
+    public static String md5(String filename) throws CryptoException {
         return md5(new File(filename));
     }
 
-    public static String md5(File file) {
+    public static String md5(File file) throws CryptoException {
         return messageDigest(file, "MD5");
     }
 
-    public static String messageDigest(String filename, String algorithm) {
+    public static String messageDigest(String filename, String algorithm) throws CryptoException {
         return messageDigest(new File(filename), algorithm);
     }
 
-    public static String messageDigest(File file, String algorithm) {
+    public static String messageDigest(File file, String algorithm) throws CryptoException {
         DigestInputStream dis = null;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
@@ -28,7 +30,7 @@ public class CryptoUtils {
             return bytesToHex(messageDigest.digest());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new CryptoException(e);
         } finally {
             FileUtils.closeStream(dis);
         }

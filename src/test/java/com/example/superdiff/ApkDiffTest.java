@@ -8,6 +8,6 @@ public class ApkDiffTest {
 
     @Test
     public void diff() throws Exception {
-        ApkDiff.diff("e:/zip/jrtt-new.apk","e:/zip/jrtt-old.apk","");
+        ApkDiff.diff("e:/zip/jrtt-new.apk","e:/zip/jrtt-old.apk","e:/zip/jrtt-new-diff.zip");
     }
 }

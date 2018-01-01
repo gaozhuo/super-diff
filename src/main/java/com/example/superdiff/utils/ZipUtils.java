@@ -17,7 +17,7 @@ import java.util.zip.*;
 public class ZipUtils {
     private static final int BUF_SIZE = 4096;
     private static final String BASE_DIR = "";
-    private static final String SEPARATOR = File.separator;
+    private static final String SEPARATOR = "/";
 
     /**
      * 压缩文件
@@ -116,8 +116,9 @@ public class ZipUtils {
 
         if (files.length == 0) {// 构建空目录
             String name = basePath + dir.getName() + SEPARATOR;
+            System.out.println("name=" + name);
             if (!includeRoot) {
-                name = name.substring(name.indexOf(File.separator) + 1);
+                name = name.substring(name.indexOf(SEPARATOR) + 1);
             }
             ZipEntry entry = new ZipEntry(name);
             try {
@@ -154,10 +155,9 @@ public class ZipUtils {
     private static void compressFile(File file, ZipOutputStream zos, String dir, boolean includeRoot) throws IOException {
         String name = dir + file.getName();
         if (!includeRoot) {
-            name = name.substring(name.indexOf(File.separator) + 1);
+            name = name.substring(name.indexOf(SEPARATOR) + 1);
         }
         ZipEntry entry = new ZipEntry(name);
-        System.out.println("name=" + entry.getName());
         BufferedInputStream bis = null;
         try {
             zos.putNextEntry(entry);
@@ -266,7 +266,7 @@ public class ZipUtils {
     private static void decompress(File destFile, ZipInputStream zis) throws FileNotFoundException, IOException {
         ZipEntry entry = null;
         while ((entry = zis.getNextEntry()) != null) {
-            File file = new File(destFile.getPath() + File.separator + entry.getName());
+            File file = new File(destFile.getPath() + SEPARATOR + entry.getName());
             if (entry.isDirectory()) {
                 file.mkdirs();
             } else {

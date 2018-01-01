@@ -10,7 +10,8 @@ public class ZipUtilsTest {
 
     @Test
     public void compress() throws Exception {
-        ZipUtils.compress("e:/zip/111.txt", "e:/zip/111.zip",false);
+        ZipUtils.compress("e:/zip/test", "e:/zip/test2.zip", false);
+        //ZipUtils2.compress("e:/zip/test", "e:/zip/test2.zip");
     }
 
     @Test
